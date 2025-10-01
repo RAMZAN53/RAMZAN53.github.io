@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramzan - AI Developer Portfolio</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --secondary: #0f172a;
+  --text: #334155;
+  --text-light: #64748b;
+  --bg: #ffffff;
+  --bg-light: #f8fafc;
+  --border: #e2e8f0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  background: var(--bg-light);
+  overflow-x: hidden;
+}
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+nav.scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+  background-size: cover;
+  opacity: 0.3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  animation: fadeInUp 1s ease;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero .tagline {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: white;
+  color: var(--primary);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn-outline {
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: var(--primary);
+}
+
+/* Section Styles */
+section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: var(--secondary);
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* About Section */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: center;
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.about-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: white;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.about-text h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.about-text p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-item strong {
+  color: var(--secondary);
+}
+
+/* Experience Section */
+#experience {
+  background: white;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.5s ease forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.5rem;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px var(--border);
+}
+
+.timeline-item h3 {
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.timeline-item .role {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-item .duration {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item .location {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Projects Section */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  border-color: var(--primary);
+}
+
+.project-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+}
+
+.project-card h3 {
+  color: var(--secondary);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.project-card p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}
+
+.project-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.3s;
+}
+
+.project-link:hover {
+  gap: 1rem;
+}
+
+/* Resume Section */
+#resume {
+  background: var(--bg-light);
+  text-align: center;
+}
+
+.resume-viewer {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.resume-controls {
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.resume-btn {
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: 2px solid var(--primary);
+  display: inline-block;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+}
+
+.resume-btn:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+}
+
+.resume-btn-outline {
+  background: white;
+  color: var(--primary);
+}
+
+.resume-btn-outline:hover {
+  background: var(--bg-light);
+}
+
+.pdf-container {
+  width: 100%;
+  height: 800px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pdf-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Contact Section */
+#contact {
+  background: white;
+  text-align: center;
+}
+
+.contact-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.contact-item {
+  background: var(--bg-light);
+  padding: 1.5rem;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.contact-item:hover {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.contact-item a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Footer */
+footer {
+  background: var(--secondary);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero .tagline {
+    font-size: 1.2rem;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .about-image {
+    width: 150px;
+    height: 150px;
+    font-size: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .pdf-container {
+    height: 600px;
+  }
+
+  .resume-viewer {
+    padding: 1.5rem;
+  }
+
+  .project-card {
+    padding: 1.5rem;
+  }
+
+  section {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .nav-links {
+    font-size: 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero .tagline {
+    font-size: 1rem;
+  }
+
+  .hero {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .about-image {
+    width: 120px;
+    height: 120px;
+    font-size: 2.5rem;
+  }
+
+  .about-text h3 {
+    font-size: 1.25rem;
+  }
+
+  .timeline {
+    padding-left: 1rem;
+  }
+
+  .timeline-item {
+    padding-left: 1.5rem;
+  }
+
+  .pdf-container {
+    height: 500px;
+  }
+
+  .resume-controls {
+    flex-direction: column;
+  }
+
+  .resume-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-item {
+    padding: 1rem;
+  }
+
+  .contact-item a {
+    font-size: 0.95rem;
+    word-break: break-word;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  section {
+    padding: 2.5rem 1rem;
+  }
+
+  .resume-viewer {
+    padding: 1rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero .tagline {
+    font-size: 0.9rem;
+  }
+
+  .nav-links {
+    gap: 0.35rem;
+    font-size: 0.7rem;
+  }
+
+  .pdf-container {
+    height: 400px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+}
+</style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo">Ramzan</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Ramzan</h1>
+      <p class="tagline">AI Developer | Data Scientist | Machine Learning Engineer</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-content">
+      <div class="about-image">👨‍💻</div>
+      <div class="about-text">
+        <h3>Building AI Solutions for Tomorrow</h3>
+        <p>I'm a passionate AI developer and data scientist with expertise in machine learning, deep learning, and data analysis. I specialize in creating intelligent systems that solve real-world problems.</p>
+        <div class="info-item">
+          <strong>🎓 Education:</strong> University of Central Punjab
+        </div>
+        <div class="info-item">
+          <strong>📧 Email:</strong> <a href="mailto:muhammadramzanhussain021@gmail.com">muhammadramzanhussain021@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="section-title">Professional Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="role">AI Developer</div>
+        <h3>ProgrammX</h3>
+        <div class="duration">August 2025 - Present (2 months)</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">Data Scientist Trainee</div>
+        <h3>Machine Learning 1 Limited</h3>
+        <div class="duration">April 2025 - May 2025 (2 months)</div>
+        <div class="location">Lahore, Punjab, Pakistan</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">Data Scientist</div>
+        <h3>Digicon Valley</h3>
+        <div class="duration">February 2025 (1 month)</div>
+        <div class="location">Lahore, Punjab, Pakistan</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">AI Trainee</div>
+        <h3>Aug AI</h3>
+        <div class="duration">December 2024 (1 month)</div>
+        <div class="location">Lahore, Punjab, Pakistan</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="role">Software Quality Assurance</div>
+        <h3>Tracking World (Pvt) Ltd</h3>
+        <div class="duration">October 2024 - November 2024 (2 months)</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 class="section-title">Projects & Repositories</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon">🐙</div>
+        <h3>GitHub Portfolio</h3>
+        <p>Explore my open-source projects, contributions, and code repositories showcasing various AI and ML implementations.</p>
+        <a href="https://github.com/RAMZAN53" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🤗</div>
+        <h3>Hugging Face Models</h3>
+        <p>Check out my machine learning models, datasets, and AI experiments hosted on Hugging Face's platform.</p>
+        <a href="https://huggingface.co/Ramzan0553" target="_blank" class="project-link">View Profile →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume">
+    <h2 class="section-title">My Resume</h2>
+    <div class="resume-viewer">
+      <div class="resume-controls">
+        <a href="Resume.pdf" download class="resume-btn">📥 Download Resume</a>
+        <a href="Resume.pdf" target="_blank" class="resume-btn resume-btn-outline">🔗 Open in New Tab</a>
+      </div>
+      <div class="pdf-container">
+        <iframe src="Resume.pdf" title="Resume"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="contact-content">
+      <p>I'm always interested in hearing about new projects and opportunities. Feel free to reach out!</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <a href="mailto:muhammadramzanhussain021@gmail.com">📧 muhammadramzanhussain021@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <a href="https://github.com/RAMZAN53" target="_blank">🐙 GitHub: RAMZAN53</a>
+        </div>
+        <div class="contact-item">
+          <a href="https://huggingface.co/Ramzan0553" target="_blank">🤗 Hugging Face: Ramzan0553</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Ramzan. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
